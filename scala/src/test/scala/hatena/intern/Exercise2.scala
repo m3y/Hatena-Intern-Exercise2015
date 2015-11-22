@@ -6,10 +6,20 @@ class Exercise2Spec extends UnitSpec {
 
   describe("LTSV Parser") {
     it("LTSVファイルが正しくパースされていること") {
-      val logs = LtsvParser.parse("/path/to/sample_data/log.ltsv") // リポジトリ内の`sample_data/log.ltsv`へのパスを指定してください
+      val logs = LtsvParser.parse("../sample_data/log.ltsv")
       logs.size shouldBe 5
 
       // 以降ファイルが正しくLogクラスにパースされているテストを書いてみてください
+      logs.toList(0).size shouldBe 2326
+      logs.toList(0).status shouldBe 200
+      logs.toList(1).size shouldBe 1234
+      logs.toList(1).status shouldBe 200
+      logs.toList(2).size shouldBe 9999
+      logs.toList(2).status shouldBe 503
+      logs.toList(3).size shouldBe 2326
+      logs.toList(3).status shouldBe 500
+      logs.toList(4).size shouldBe 100
+      logs.toList(4).status shouldBe 404
     }
 
     it("LTSVファイルが正しくパースできない形式の場合") {
