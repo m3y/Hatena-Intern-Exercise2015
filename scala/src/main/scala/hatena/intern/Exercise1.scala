@@ -4,7 +4,7 @@ import org.joda.time.DateTime
 import org.joda.time.DateTimeZone
 import org.joda.time.format._
 
-case class Log(host: String, user: String, epoch: Int, req: String, status: Int, size: Int, referer: String) {
+case class Log(host: String, user: Option[String], epoch: Int, req: String, status: Int, size: Int, referer: Option[String]) {
   def method: String = req.split(" ")(0)
   def path: String = req.split(" ")(1)
   def protocol: String = req.split(" ")(2)
