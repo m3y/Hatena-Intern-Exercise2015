@@ -5,6 +5,13 @@ import scalax.file.Path
 object LtsvParser {
   def parse(filePath: String): Iterable[Log] = {
 
+    def convertOption(v: String): Option[String] = {
+      v match {
+        case "-" => None
+        case _ => Option(v)
+      }
+    }
+
     // File -> String -> List[Map]
     val tokens = for {
       line <- Path.fromString(filePath).lines()
@@ -15,12 +22,12 @@ object LtsvParser {
     tokens.toList.map { token =>
       Log(
         host = token("host"),
-        user = token("user"),
+        user = convertOption(token("user")),
         epoch = token("epoch").toInt,
         req = token("req"),
         status = token("status").toInt,
         size = token("size").toInt,
-        referer = token("referer")
+        referer = convertOption(token("referer"))
       )
     }
   }
